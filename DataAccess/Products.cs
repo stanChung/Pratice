@@ -13,7 +13,7 @@ namespace DataAccess
     {
     }
 
-    public class Products:Basic_DAL
+    public class Products : Basic_DAL
     {
 
         private string tbName = "AdventureWorks.Production.Product";
@@ -103,7 +103,7 @@ namespace DataAccess
                         obj.Class = sdr["Class"].ToString();
                         obj.Color = sdr["Color"].ToString();
 
-  
+
                         obj.Name = sdr["Name"].ToString();
                         obj.ProductID = Convert.ToInt32(sdr["ProductID"]);
                         obj.ProductNumber = sdr["ProductNumber"].ToString();
@@ -118,12 +118,82 @@ namespace DataAccess
                     totalPage = Convert.ToInt32(cmd.Parameters["@TotalPage"].Value);
                 }
             }
- 
-            
-           
+
+
+
 
 
             return lstobj;
+        }
+
+        /// <summary>
+        /// 新增一筆產品資料
+        /// </summary>
+        /// <param name="d">產品資料</param>
+        public void Insert(Product d)
+        {
+            using (var db = new DbProductsDataContext(ConnectionString))
+            {
+                try
+                {
+                    d.ModifiedDate = DateTime.Now;
+                    d.SellStartDate = DateTime.Today.AddDays(30);
+                    d.SafetyStockLevel = 200;
+                    d.ReorderPoint = 100;
+
+                    db.Product.InsertOnSubmit(d);
+                    db.SubmitChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 更新產品資料
+        /// </summary>
+        /// <param name="d">產品資料</param>
+        public void Update(Product d)
+        {
+            using (var db = new DbProductsDataContext(ConnectionString))
+            {
+                try
+                {
+                    var t = db.Product.First(p => p.ProductID == d.ProductID);
+                    t.ProductNumber = d.ProductNumber;
+                    t.Name = d.Name;
+                    t.Color = d.Color;
+                    t.ModifiedDate = DateTime.Now;
+                    db.SubmitChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 刪除產品資料
+        /// </summary>
+        /// <param name="id">產品代號</param>
+        public void Delete(int id)
+        {
+            using (var db = new DbProductsDataContext(ConnectionString))
+            {
+                try
+                {
+                    var t = db.Product.First(p => p.ProductID == id);
+                    db.Product.DeleteOnSubmit(t);
+                    db.SubmitChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
         }
 
     }

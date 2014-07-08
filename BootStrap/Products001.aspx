@@ -69,13 +69,14 @@
                 rowNum: 10,
                 //rowList: [1, 3, 5, 10],
                 rowList: [10, 30, 50, 100],
-                sortname: "Name",
+                sortname: "ProductID,Name",
                 sortorder: "desc",
                 altRows: true,
                 viewrecords: true,
                 gridview: true,
                 autoencode: true,
                 caption: "產品資料"
+ 
 
 
             });
@@ -134,7 +135,7 @@
                         rowData = list.getRowData(selectedRow);
                         params.url += "/" + rowData.ProductID;
                     }
-                    posdata.
+                    posdata.ProductID = rowData.ProductID;
                     params.mtype = action;
                 }
                 , afterShowForm: function (formid) {
@@ -144,8 +145,8 @@
                         $("#Name").focus();
                     }
                     else {
-                        $("#TRANS_CLAS").removeAttr("readonly");
-                        $("#TRANS_CLAS").removeClass("ui-state-disabled");
+                        $("#ProductID").removeAttr("readonly");
+                        $("#ProductID").removeClass("ui-state-disabled");
                     }
 
                 }

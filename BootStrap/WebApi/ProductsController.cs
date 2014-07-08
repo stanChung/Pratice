@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DataAccess;
@@ -10,14 +7,49 @@ namespace BootStrap.WebApi
 {
     public class ProductsController : ApiController
     {
-        // GET api/<controller>
+        /// <summary>
+        /// 載入全部資料
+        /// </summary>
+        /// <param name="sidx">排序欄位</param>
+        /// <param name="sord">排序方向</param>
+        /// <param name="page">頁碼</param>
+        /// <param name="rows">分頁筆數</param>
+        /// <returns></returns>
         [HttpGet]
         public dynamic Get(string sidx, string sord, Int32 page, Int32 rows)
         {
             var obj = new Products("ADB");
             int? totalRecord = 0;
             int? totalPage = 0;
-            var oData = obj.GetAllData(rows, page, "Name", ref totalRecord, ref totalPage);
+            var oData = obj.GetAllData(rows, page, sidx, ref totalRecord, ref totalPage);
+
+
+            return new
+            {
+                total = totalPage,
+                page = page > totalPage ? totalPage : page,
+                records = totalRecord,
+                rows = oData.ToArray()
+            };
+        }
+        /// <summary>
+        /// 關鍵字搜尋
+        /// </summary>
+        /// <param name="sidx">排序欄位</param>
+        /// <param name="sord">排序方向</param>
+        /// <param name="page">頁碼</param>
+        /// <param name="rows">分頁筆數</param>
+        /// <param name="searchString">搜尋字串</param>
+        /// <param name="searchField">搜尋欄位</param>
+        /// <param name="searchOper">搜尋方式</param>
+        /// <returns></returns>
+        [HttpGet]
+        public dynamic Get(string sidx, string sord, Int32 page, Int32 rows, string searchString, string searchField, string searchOper)
+        {
+            var obj = new Products("ADB");
+            int? totalRecord = 0;
+            int? totalPage = 0;
+            var oData = obj.GetAllData(rows, page, "ProductID,Name", ref totalRecord, ref totalPage, searchField, searchOper, searchString);
 
 
             return new
@@ -29,25 +61,83 @@ namespace BootStrap.WebApi
             };
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+
+        /// <summary>
+        /// 新增產品資料
+        /// </summary>
+        /// <param name="item">表單資料</param>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage Post(Product item)
         {
-            return "value";
+            var uri = Url.Link("DefaultApi", new { id = item.ProductID });
+            var response = Request.CreateErrorResponse(System.Net.HttpStatusCode.Created, uri);
+            try
+            {
+
+                var obj = new Products("ADB");
+                obj.Insert(item);
+
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            }
+
+            response.Headers.Location = new Uri(uri);
+            return response;
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        /// <summary>
+        /// 修改產品資料
+        /// </summary>
+        /// <param name="item">表單資料</param>
+        /// <returns></returns>
+        [HttpPut]
+        public HttpResponseMessage Put(Product item)
         {
+            var uri = Url.Link("DefaultApi", new { id = item.ProductID });
+            var response = Request.CreateErrorResponse(System.Net.HttpStatusCode.Created, uri);
+            try
+            {
+
+                var obj = new Products("ADB");
+                obj.Update(item);
+
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            }
+
+            response.Headers.Location = new Uri(uri);
+            return response;
         }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        /// <summary>
+        /// 刪除產品資料
+        /// </summary>
+        /// <param name="id">產品代碼</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public HttpResponseMessage Delete(int id)
         {
-        }
+            var uri = Url.Link("DefaultApi", new { id = id });
+            var response = Request.CreateErrorResponse(System.Net.HttpStatusCode.Created, uri);
+            try
+            {
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+                var obj = new Products("ADB");
+                obj.Delete(id);
+
+            }
+            catch (Exception ex)
+            {
+                response = Request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            }
+
+            response.Headers.Location = new Uri(uri);
+            return response;
         }
     }
 }
