@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
-<%--    <link rel="stylesheet" href="Content/bootstrap-theme.min.css" />--%>
+    <%--    <link rel="stylesheet" href="Content/bootstrap-theme.min.css" />--%>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
@@ -13,6 +13,10 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
     <form id="form1" runat="server">
         <div class="container-fluid">
             <div class="row">
@@ -32,17 +36,19 @@
 
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
         </div>
 
 
 
 
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
+
     </form>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
+
 </body>
 </html>
