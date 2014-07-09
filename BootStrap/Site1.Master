@@ -16,39 +16,98 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var themes = {
+            "default": "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css",
+            "amelia": "//bootswatch.com/amelia/bootstrap.min.css",
+            "cerulean": "//bootswatch.com/cerulean/bootstrap.min.css",
+            "cosmo": "//bootswatch.com/cosmo/bootstrap.min.css",
+            "cyborg": "//bootswatch.com/cyborg/bootstrap.min.css",
+            "flatly": "//bootswatch.com/flatly/bootstrap.min.css",
+            "journal": "//bootswatch.com/journal/bootstrap.min.css",
+            "readable": "//bootswatch.com/readable/bootstrap.min.css",
+            "simplex": "//bootswatch.com/simplex/bootstrap.min.css",
+            "slate": "//bootswatch.com/slate/bootstrap.min.css",
+            "spacelab": "//bootswatch.com/spacelab/bootstrap.min.css",
+            "united": "//bootswatch.com/united/bootstrap.min.css"
+        }
+        $(function () {
+            var themesheet = $('<link href="' + themes['default'] + '" rel="stylesheet" />');
+            themesheet.appendTo('head');
+            $('.theme-link').click(function () {
+                var themeurl = themes[$(this).attr('data-theme')];
+                themesheet.attr('href', themeurl);
+            });
+        });
 
-    <form id="form1" runat="server">
-        <div class="container-fluid">
-            <div class="row">
-                <div class=" col-md-3">
+    </script>
+    <div class="container-fluid">
+        <div class="row">
+            <div class=" col-md-12">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="Default.aspx">首頁</a>
+                    </div>
 
-                    <ul class="nav nav-pills">
-                        <li><a href="Default.aspx">首頁</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">產品資料 <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="presentation"><a role="menuitem" href="Default.aspx">基本資料維護</a></li>
-                            </ul>
-                        </li>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
 
-                    </ul>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">產品資料 <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="Products001.aspx">基本資料維護</a></li>
 
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">切換佈景 <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" data-theme="default" class="theme-link">Default</a></li>
+                                    <li><a href="#" data-theme="amelia" class="theme-link">Amelia</a></li>
+                                    <li><a href="#" data-theme="cerulean" class="theme-link">Cerulean</a></li>
+                                    <li><a href="#" data-theme="cosmo" class="theme-link">Cosmo</a></li>
+                                    <li><a href="#" data-theme="cyborg" class="theme-link">Cyborg</a></li>
+                                    <li><a href="#" data-theme="flatly" class="theme-link">Flatly</a></li>
+                                    <li><a href="#" data-theme="journal" class="theme-link">Journal</a></li>
+                                    <li><a href="#" data-theme="readable" class="theme-link">Readable</a></li>
+                                    <li><a href="#" data-theme="simplex" class="theme-link">Simplex</a></li>
+                                    <li><a href="#" data-theme="slate" class="theme-link">Slate</a></li>
+                                    <li><a href="#" data-theme="spacelab" class="theme-link">Spacelab</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                    </asp:ContentPlaceHolder>
+                <!-- /.container-fluid -->
+            </nav>
                 </div>
-            </div>
         </div>
 
 
+        <div class="row">
+            <div class="col-md-12 ">
+                <form id="form1" runat="server">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </form>
+            </div>
+        </div>
 
-
-
-    </form>
+    </div>
 
 </body>
 </html>

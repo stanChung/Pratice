@@ -47,28 +47,28 @@ namespace DataAccess
             switch (oper)
             {
                 case "eq":
-                    whereClause = col + " ='" + searchString + "' ";
+                    whereClause = col + " =N'" + searchString + "' ";
                     break;
                 case "ne":
-                    whereClause = col + " <>'" + searchString + "' ";
+                    whereClause = col + " <>N'" + searchString + "' ";
                     break;
                 case "bw":
-                    whereClause = col + " LIKE '" + searchString + "%' ";
+                    whereClause = col + " LIKE N'" + searchString + "%' ";
                     break;
                 case "whereClause":
-                    whereClause = col + " NOT LIKE='" + searchString + "%' ";
+                    whereClause = col + " NOT LIKE=N'" + searchString + "%' ";
                     break;
                 case "ew":
-                    whereClause = col + " LIKE '%" + searchString + "' ";
+                    whereClause = col + " LIKE N'%" + searchString + "' ";
                     break;
                 case "en":
-                    whereClause = col + "NOT LIKE '%" + searchString + "' ";
+                    whereClause = col + "NOT LIKE N'%" + searchString + "' ";
                     break;
                 case "cn":
-                    whereClause = col + " LIKE '%" + searchString + "%' ";
+                    whereClause = col + " LIKE N'%" + searchString + "%' ";
                     break;
                 case "nc":
-                    whereClause = col + " NOT LIKE '%" + searchString + "%' ";
+                    whereClause = col + " NOT LIKE N'%" + searchString + "%' ";
                     break;
                 case "nu":
                     whereClause = col + " IS NULL ";

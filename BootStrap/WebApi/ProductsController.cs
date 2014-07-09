@@ -94,10 +94,11 @@ namespace BootStrap.WebApi
         /// <param name="item">表單資料</param>
         /// <returns></returns>
         [HttpPut]
-        public HttpResponseMessage Put(Product item)
+        public HttpResponseMessage Put(string id,Product item)
         {
             var uri = Url.Link("DefaultApi", new { id = item.ProductID });
             var response = Request.CreateErrorResponse(System.Net.HttpStatusCode.Created, uri);
+            item.ProductID = Convert.ToInt32(id);
             try
             {
 
